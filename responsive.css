@@ -1,0 +1,75 @@
+/*
+   FINORA - responsive.css
+
+/* Tablet & màn hình nhỏ: menu dạng nút ☰ (7 mục nav không vừa 1 hàng) */
+@media (max-width: 992px) {
+  .nav-toggle { display: block; }
+
+  .navbar {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .navbar.open { display: block; }
+
+  .navbar ul { flex-direction: column; align-items: stretch; gap: 0.25rem; }
+  .navbar li:nth-last-child(-n+2) { margin-top: 0.4rem; }
+  .theme-toggle-btn,
+  .theme-store-btn { width: 100%; justify-content: center; padding: 0.6rem; }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .filter-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Điện thoại */
+@media (max-width: 576px) {
+  .main-content { padding: 1.25rem 0; }
+
+  .stats-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .filter-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+
+  .top-bar { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .top-actions { width: 100%; }
+  .top-actions .form-control { flex: 1; }
+
+  .filter-actions { width: 100%; }
+  .filter-actions button { flex: 1; }
+
+  .form-card { padding: 1.25rem; }
+  .budget-card, .card { padding: 1.1rem; }
+  .radio-group { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+
+  .budget-item-head,
+  .budget-item-meta { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
+
+  .slider-box { height: 150px; }
+  .chart-container { height: 240px; gap: 0.4rem; }
+  .chart-bar { width: 28px; }
+  .chart-bar-value { font-size: 0.65rem; }
+  .chart-bar-label { font-size: 0.7rem; }
+
+  /* Bảng thu gọn chữ; cuộn ngang trong khung .table-responsive */
+  th, td { padding: 0.6rem 0.5rem; font-size: 0.82rem; }
+  .table-responsive table { min-width: 520px; }
+  .btn-edit, .btn-delete { padding: 0.25rem 0.45rem; font-size: 0.75rem; }
+
+  .toast { left: 12px; right: 12px; top: 12px; }
+}
+
+/* Lưới 3 thẻ (báo cáo) cũng phải xuống 1 cột trên điện thoại */
+@media (max-width: 992px) {
+  .stats-grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 576px) {
+  .stats-grid-3 { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finora - Tổng quan tài chính</title>
+  <link rel="icon" type="image/png" href="images/favicon-finora.png">
+  <link rel="apple-touch-icon" href="images/favicon-finora.png">
+  <meta name="theme-color" content="#1e40af">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/main.js"></script>
+</head>
+<body>
+
+  <!-- Thông báo nổi (toast) -->
+  <div id="toastMessage" class="toast" role="status" aria-live="polite">
+    <span aria-hidden="true">✅</span>
+    <span id="toastText"></span>
+  </div>
+
+  <!-- Header & thanh điều hướng -->
+  <header class="header">
+    <div class="container header-content">
+      <a href="index.html" class="logo" aria-label="Finora - Trang chủ">
+        <img src="images/navbar-finora.png" alt="Finora - Hiểu tiền, sống chủ động">
+      </a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="mainNav">☰</button>
+      <nav class="navbar" id="mainNav" aria-label="Menu chính">
+        <ul>
+          <li><a href="index.html" class="active" aria-current="page">Tổng quan</a></li>
+          <li><a href="transactions.html">Giao dịch</a></li>
+          <li><a href="add-transaction.html">Thêm mới</a></li>
+          <li><a href="budget.html">Ngân sách</a></li>
+          <li><a href="reports.html">Báo cáo</a></li>
+          <li>
+            <button id="themeStoreBtn" class="theme-store-btn" type="button">
+              🛍️ Cửa Hàng
+              <span class="sparkle-icon sparkle-1" aria-hidden="true">✨</span>
+              <span class="sparkle-icon sparkle-2" aria-hidden="true">⭐</span>
+            </button>
+          </li>
+          <li>
+            <button id="themeToggleBtn" class="theme-toggle-btn" type="button">🌙 Chế độ tối</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <!-- Slider ảnh banner -->
+      <section class="banner-slider" aria-label="Banner mẹo tài chính">
+        <div class="slider-box">
+          <img id="bannerImg1" class="active-slide" alt="Banner tài chính 1">
+          <img id="bannerImg2" alt="Banner tài chính 2">
+          <img id="bannerImg3" alt="Banner tài chính 3">
+        </div>
+        <p class="slider-caption">✨ Mẹo quản lý tài chính thông minh giúp bạn chủ động nguồn tiền mỗi ngày!</p>
+      </section>
+
+      <div class="top-bar">
+        <div>
+          <h2>Bảng điều khiển tài chính</h2>
+          <p class="clock-display" id="realtimeClock">Đang cập nhật thời gian...</p>
+        </div>
+        <div class="top-actions">
+          <label for="dashMonth" class="sr-only">Chọn tháng xem số liệu</label>
+          <input type="month" id="dashMonth" class="form-control">
+          <a href="add-transaction.html" class="btn-primary">+ Thêm giao dịch</a>
+        </div>
+      </div>
+
+      <!-- Cảnh báo vượt ngân sách (JS bật/tắt) -->
+      <div id="budgetAlertBanner" class="alert-banner" role="alert"></div>
+
+      <!-- Thẻ thống kê -->
+      <section class="stats-grid" aria-label="Thống kê tháng">
+        <div class="card">
+          <div class="stat-card-title">Thu nhập trong tháng</div>
+          <div class="stat-card-value income" id="totalIncome">0 ₫</div>
+        </div>
+        <div class="card">
+          <div class="stat-card-title">Chi tiêu trong tháng</div>
+          <div class="stat-card-value expense" id="totalExpense">0 ₫</div>
+        </div>
+        <div class="card">
+          <div class="stat-card-title">Chênh lệch tháng (thu − chi)</div>
+          <div class="stat-card-value balance" id="monthNet">0 ₫</div>
+        </div>
+        <div class="card">
+          <div class="stat-card-title">Số dư khả dụng (tất cả)</div>
+          <div class="stat-card-value balance" id="currentBalance">0 ₫</div>
+        </div>
+      </section>
+
+      <!-- Giao dịch gần đây -->
+      <section>
+        <div class="section-header">
+          <h3>Giao dịch gần đây</h3>
+          <a href="transactions.html" class="link-more">Xem tất cả →</a>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr><th>Ngày</th><th>Mô tả</th><th>Danh mục</th><th>Loại</th><th>Số tiền</th></tr>
+            </thead>
+            <tbody id="recentTransactionsTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Finora &ndash; Hiểu tiền, sống chủ động.</p>
+    </div>
+  </footer>
+
+  <!-- Modal Cửa hàng chủ đề -->
+  <div class="theme-modal" id="themeModal" role="dialog" aria-modal="true" aria-labelledby="themeModalTitle">
+    <div class="theme-modal-content">
+      <h3 id="themeModalTitle"> Cửa Hàng Chủ Đề</h3>
+      <p class="modal-note">Chọn phong cách giao diện yêu thích cho Finora nhé!</p>
+      <div class="theme-grid">
+        <button type="button" class="theme-option-card" data-theme-choice="pastel"><strong> Hồng Pastel</strong><small>Hồng ngọt ngào</small></button>
+        <button type="button" class="theme-option-card" data-theme-choice="green"><strong> Xa lánh</strong><small>Tài lộc, thịnh vượng</small></button>
+        <button type="button" class="theme-option-card" data-theme-choice="sunset"><strong> màu cem</strong><small>Ấm áp, năng động</small></button>
+        <button type="button" class="theme-option-card" data-theme-choice="skyblue"><strong> Xanh Nước</strong><small>Thanh lịch, mát mắt</small></button>
+      </div>
+      <button type="button" id="closeThemeModal" class="btn-outline btn-block">Đóng lại</button>
+    </div>
+  </div>
+
+</body>
+</html>

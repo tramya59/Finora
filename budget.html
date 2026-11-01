@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finora - Cài Đặt Ngân Sách</title>
+  <link rel="icon" type="image/png" href="images/favicon-finora.png">
+  <link rel="apple-touch-icon" href="images/favicon-finora.png">
+  <meta name="theme-color" content="#1e40af">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/main.js"></script>
+</head>
+<body>
+
+  <!-- Thông báo nổi (toast) -->
+  <div id="toastMessage" class="toast" role="status" aria-live="polite">
+    <span aria-hidden="true">✅</span>
+    <span id="toastText"></span>
+  </div>
+
+  <!-- Header & thanh điều hướng -->
+  <header class="header">
+    <div class="container header-content">
+      <a href="index.html" class="logo" aria-label="Finora - Trang chủ">
+        <img src="images/navbar-finora.png" alt="Finora - Hiểu tiền, sống chủ động">
+      </a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="mainNav">☰</button>
+      <nav class="navbar" id="mainNav" aria-label="Menu chính">
+        <ul>
+          <li><a href="index.html">Tổng quan</a></li>
+          <li><a href="transactions.html">Giao dịch</a></li>
+          <li><a href="add-transaction.html">Thêm mới</a></li>
+          <li><a href="budget.html" class="active" aria-current="page">Ngân sách</a></li>
+          <li><a href="reports.html">Báo cáo</a></li>
+          <li>
+            <button id="themeStoreBtn" class="theme-store-btn" type="button">
+              🛍️ Cửa Hàng
+              <span class="sparkle-icon sparkle-1" aria-hidden="true">✨</span>
+              <span class="sparkle-icon sparkle-2" aria-hidden="true">⭐</span>
+            </button>
+          </li>
+          <li>
+            <button id="themeToggleBtn" class="theme-toggle-btn" type="button">🌙 Chế độ tối</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="top-bar">
+        <div>
+          <h2>Quản lý hạn mức ngân sách</h2>
+          <p class="clock-display">Thiết lập mục tiêu chi tiêu và kiểm soát dòng tiền</p>
+        </div>
+      </div>
+
+      <!-- Form thiết lập hạn mức: tháng + danh mục + hạn mức (validation JS) -->
+      <section class="budget-card">
+        <h3>Thiết lập ngân sách chi tiêu</h3>
+        <p class="form-hint">
+          Mỗi tháng + danh mục có một hạn mức. Lưu lại với cùng tháng và danh mục sẽ cập nhật hạn mức cũ.
+        </p>
+        <form id="budgetForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="budgetMonth">Tháng áp dụng <span class="required">*</span></label>
+              <input type="month" id="budgetMonth" class="form-control">
+              <span class="error-message" id="budgetMonthError"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="budgetCategory">Phạm vi danh mục <span class="required">*</span></label>
+              <select id="budgetCategory" class="form-control">
+                <option value="Tất cả danh mục">Tất cả danh mục (tổng chi tháng)</option>
+                <option value="Ăn uống">Ăn uống</option>
+                <option value="Học tập">Học tập</option>
+                <option value="Nhà ở">Nhà ở</option>
+                <option value="Di chuyển">Di chuyển</option>
+                <option value="Mua sắm">Mua sắm</option>
+                <option value="Khác">Khác</option>
+              </select>
+              <span class="error-message" id="budgetCategoryError"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="budgetInput">Hạn mức chi tiêu tối đa (VNĐ) <span class="required">*</span></label>
+            <input type="number" id="budgetInput" class="form-control" placeholder="Ví dụ: 5000000" min="100000">
+            <span class="error-message" id="budgetInputError"></span>
+          </div>
+
+          <button type="submit" class="btn-primary">💾 Lưu hạn mức ngân sách</button>
+        </form>
+      </section>
+
+      <!-- Tình trạng sử dụng ngân sách -->
+      <section class="budget-card">
+        <h3>Tình trạng sử dụng ngân sách tháng <span id="budgetListMonth"></span></h3>
+        <div id="budgetList"></div>
+      </section>
+
+      <!-- Quản lý dữ liệu -->
+      <section class="budget-card">
+        <h3>Quản lý dữ liệu</h3>
+        <p class="form-hint">Nạp dữ liệu mẫu để xem thử giao diện, hoặc xóa sạch để nhập dữ liệu của riêng bạn.</p>
+        <div class="data-actions">
+          <button type="button" id="btnLoadSample" class="btn-outline">📥 Nạp dữ liệu mẫu</button>
+          <button type="button" id="btnClearData" class="btn-danger">🗑️ Xóa tất cả &amp; làm mới</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Finora &ndash; Hiểu tiền, sống chủ động.</p>
+    </div>
+  </footer>
+
+  <!-- Modal Cửa hàng chủ đề -->
+  <div class="theme-modal" id="themeModal" role="dialog" aria-modal="true" aria-labelledby="themeModalTitle">
+    <div class="theme-modal-content">
+      <h3 id="themeModalTitle"> Cửa Hàng Chủ Đề</h3>
+      <p class="modal-note">Chọn phong cách giao diện yêu thích cho Finora nhé!</p>
+      <div class="theme-grid">
+        <button type="button" class="theme-option-card" data-theme-choice="pastel"><strong> Hồng Pastel</strong><small>Hồng ngọt ngào</small></button>
+        <button type="button" class="theme-option-card" data-theme-choice="green"><strong> Xa lánh</strong><small>Tài lộc, thịnh vượng</small></button>
+        <button type="button" class="theme-option-card" data-theme-choice="sunset"><strong> màu cem</strong><small>Ấm áp, năng động</small></button>
+        <button type="button" class="theme-option-card" data-theme-choice="skyblue"><strong> Xanh Nước</strong><small>Thanh lịch, mát mắt</small></button>
+      </div>
+      <button type="button" id="closeThemeModal" class="btn-outline btn-block">Đóng lại</button>
+    </div>
+  </div>
+
+  <script src="js/validation.js"></script>
+</body>
+</html>
