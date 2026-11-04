@@ -1,5 +1,5 @@
 /*
-   FINORA - responsive.css
+   FINORA - responsive.css*/
 
 /* Tablet & màn hình nhỏ: menu dạng nút ☰ (7 mục nav không vừa 1 hàng) */
 @media (max-width: 992px) {
@@ -72,4 +72,28 @@
 }
 @media (max-width: 576px) {
   .stats-grid-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 576px) {
+  /* Cho các nút ở thanh công cụ trang Báo cáo tự xuống hàng gọn gàng trên màn 390px */
+  .top-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .top-actions #btnExportCSV {
+    grid-column: 1 / -1; /* Nút Xuất CSV nằm trọn 1 hàng bên dưới */
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Bảng 4 cột (trang Báo cáo) và 5 cột (trang chủ) tự co vừa khít màn 390px, không cần kéo ngang */
+  .table-responsive table {
+    min-width: 100%;
+  }
+
+  /* Chỉ riêng bảng 7 cột ở trang Giao dịch mới cần min-width để chữ không bị chồng lên nhau */
+  #transactionListTable {
+    min-width: 520px;
+  }
 }
